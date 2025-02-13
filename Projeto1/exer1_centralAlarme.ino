@@ -1,5 +1,5 @@
 // Definição das variáveis (pinos)
-#define ON_BUTTON_PIN 0  //define troca um umero por uma palavra
+#define ON_BUTTON_PIN 9  //define troca um umero por uma palavra
 #define BAR_SENSOR_PIN 1
 #define WINDOW1_SENSOR_PIN 2
 #define WINDOW2_SENSOR_PIN 3
