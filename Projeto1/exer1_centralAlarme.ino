@@ -22,11 +22,11 @@ void setup() {
     pinMode(QUINTAL_SENSOR, INPUT);
     pinMode(CORRIDOR_SENSOR, INPUT);
     
-    // Configuração da sirene como saída
-    pinMode(SIRENE, OUTPUT);
 
-    // Garante que a sirene inicie desligada
-    digitalWrite(SIRENE, LOW);
+    pinMode(SIRENE, OUTPUT); // Configuração da sirene como saída
+
+    
+    digitalWrite(SIRENE, LOW); //  sirene inicia desligada
 }
 
 //Logica
