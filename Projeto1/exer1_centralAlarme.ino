@@ -9,9 +9,12 @@
 #define HALL_SENSOR_PIN 7
 #define ALARM_PIN 8
 
+// Declaração das Variaveis
 bool onButton = 0, bar_sensor = 0, window1_sensor = 0;
 bool window2_sensor = 0, room_sensor = 0, kitchen_sensor = 0;
 bool garage_sensor = 0 , hall_sensor = 0, alarm = 0;
+bool systemOn = 0; 
+bool onButtonBuffer = 0;  
 
 // Configuração
 void setup() {
@@ -25,6 +28,8 @@ void setup() {
     pinMode(GARAGE_SENSOR_PIN, INPUT_PULLUP);
     pinMode(HALL_SENSOR_PIN, INPUT_PULLUP);
     pinMode(ALARM_PIN, OUTPUT);  // Corrigido para OUTPUT, pois ALARM_PIN controla o alarme
+
+    Serial.begin(9600);  /// para iniciar a comunicação serial entre o Arduino e o computador 
 }
 
 // Lógica
@@ -39,7 +44,19 @@ void loop() {
     hall_sensor = !digitalRead(HALL_SENSOR_PIN);
     digitalWrite(ALARM_PIN, alarm);  /// digitalWrite = enviar/escrever um valor HIGH (alto) ou LOW (baixo) para um pino digital do Arduino
 
+    /// Inicio da BORDA
     if(onButton){
+        onButtonBuffer = true;
+    }
+
+    /// Fim da BORDA
+    if(onButtonBuffer && !onButton){
+        systemOn = !systemOn;
+        Serial.println("Sistema ativado: " + String(systemOn));  
+        onButtonBuffer = false;
+    }
+
+    if(systemOn){
         if( !bar_sensor || !window1_sensor || !window2_sensor ||    /// ! exclamação significa falso. || significa totalmente igual
             !room_sensor || !kitchen_sensor || !hall_sensor || !garage_sensor){
 
