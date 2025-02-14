@@ -32,7 +32,7 @@ void loop() {
     onButton = !digitalRead(ON_BUTTON_PIN);   // digitalRead = usada para ler o valor de um pino  
     bar_sensor = !digitalRead(BAR_SENSOR_PIN);
     window1_sensor = !digitalRead(WINDOW1_SENSOR_PIN);
-    window2_sensor = !digitalRead(WINDOW2_SENSOR_PIN);  // Corrigido para WINDOW2_SENSOR_PIN
+    window2_sensor = !digitalRead(WINDOW2_SENSOR_PIN);  
     room_sensor = !digitalRead(ROOM_SENSOR_PIN);
     kitchen_sensor = !digitalRead(KITCHEN_SENSOR_PIN);
     garage_sensor = !digitalRead(GARAGE_SENSOR_PIN);
