@@ -5,7 +5,6 @@ export class Device  {
 }
 
 
-
 export class Places  {
     nome: string="";
     devices: Array<Device> = []
