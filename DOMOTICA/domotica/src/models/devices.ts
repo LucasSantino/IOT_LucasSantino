@@ -1,6 +1,7 @@
 export class Device  {
     nome: string = "";
     state: boolean = false;
+    color: string = "#827d85";
     
 }
 
