@@ -11,7 +11,7 @@
 </script>
 
 <template>
-     
+     <h1>Devices page!!!</h1>
 </template>
 
 <style scoped lang="scss">
