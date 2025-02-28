@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
+    "material-icons": "^1.13.14",
     "pinia": "^3.0.1",
     "primeflex": "^4.0.0",
     "sass": "^1.85.0",
