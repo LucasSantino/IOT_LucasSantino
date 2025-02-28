@@ -32,10 +32,25 @@
 </script>
 
 <template>
-     <h1>Devices page!!!</h1>
-     {{ environments }}
+    <main class="flex flex-column">
+        <h1>Devices page!!!</h1>
+        <section class="enviroments flex-column">
+
+        </section>
+    </main>
+     
 </template>
 
 <style scoped lang="scss">
+    main{
+        width: 100vw;
+        min-width: 100vh;
+        .environments{
+            width: 98vw;
+            min-width:90vh;
+            color: red;
+
+        }
+    }
 
 </style>
