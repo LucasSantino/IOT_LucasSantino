@@ -32,9 +32,12 @@
 </script>
 
 <template>
-    <main class="flex flex-column">
+    <main class="flex flex-column text-center justify-content-center align-items-center">
         <h1>Devices page!!!</h1>
-        <section class="enviroments flex-column">
+        <section class="environments flex-column border-round-sm">
+            <div class="device">
+                
+            </div>
 
         </section>
     </main>
@@ -44,11 +47,13 @@
 <style scoped lang="scss">
     main{
         width: 100vw;
-        min-width: 100vh;
+        min-height: 100vh;
         .environments{
             width: 98vw;
-            min-width:90vh;
-            color: red;
+            min-height:95vh;
+            background-color: rgb(206, 160, 160);
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
 
         }
     }
