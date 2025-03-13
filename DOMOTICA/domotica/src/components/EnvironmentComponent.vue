@@ -10,7 +10,7 @@
 
 <template>
      <section class="flex flex-column"> 
-        <h3>{{ props.environment.name }}</h3>
+        <h2 class="m-2">{{ props.environment.name }}</h2>
         <div class="flex flex-row">
             <div v-for="(device, dev_id) in props.environment.devices" :key="dev_id">
                 <DeviceComponent :device="device" />
