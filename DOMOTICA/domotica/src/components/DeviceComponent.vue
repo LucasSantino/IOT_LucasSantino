@@ -4,7 +4,12 @@ import { Device } from '@/models/devices';
     const props = defineProps({
         device: { type: Device, required: true }
     });
-    
+
+
+    const changeDevice = (newState: boolean)=> {
+        props.device.state = newState;
+    }
+       
 </script>
 
 <template>
@@ -14,8 +19,8 @@ import { Device } from '@/models/devices';
         <h5>{{props.device.name}}</h5>   
         <span class="icons material-icons-round">{{ props.device.icon }}</span>       
         <div class="flex flex-row">
-            <button class="device-buttons on-button mr-1">ON</button>
-            <button class="device-buttons off-button" >OFF</button>
+            <button class="device-buttons on-button mr-1" @click="changeDevice(true)">ON</button>
+            <button class="device-buttons off-button" @click="changeDevice(false)">OFF</button>
         </div>
     </section>
 </template>
