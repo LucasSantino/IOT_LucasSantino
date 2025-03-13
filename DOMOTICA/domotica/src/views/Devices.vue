@@ -6,10 +6,10 @@ import { Device, Environment } from '@/models/devices';
 
     const environments: Array<Environment> = reactive([]);
         
-    const ar: Device = reactive(new Device());
+        const ar: Device = reactive(new Device());
     ar.name = 'Ar condicionado';
     ar.color = '#3266a8';
-    ar.icon = 'mode_fan';
+    ar.icon = 'heat_pump';
     ar.state = true;
 
     const tv: Device = reactive(new Device());
@@ -31,11 +31,19 @@ import { Device, Environment } from '@/models/devices';
     const sala: Environment = reactive(new Environment());
     sala.name = 'Sala';
     sala.devices = [ar,tv,iluminacao,tomada];
-    //sala.devices.push(ar);
-    //sala.devices.push(tv);
-    //sala.devices.push(iluminacao);
+   
+
+    const cafeteira: Device = reactive(new Device());
+    cafeteira.name = 'Cafeteira Wi-fi';
+    cafeteira.icon = 'coffee_maker'
+
+    const cozinha: Environment = reactive(new Environment());
+    cozinha.name = 'Cozinha';
+    cozinha.devices = [cafeteira];
  
     environments.push(sala);  
+    environments.push(cozinha);    
+   
     
   </script>
 

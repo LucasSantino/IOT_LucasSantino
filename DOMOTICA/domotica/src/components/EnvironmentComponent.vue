@@ -9,10 +9,12 @@
 </script>
 
 <template>
-    <section>
+     <section class="flex flex-column"> 
         <h3>{{ props.environment.name }}</h3>
-        <div v-for="(device, dev_id) in props.environment.devices" :key="dev_id">
-            <DeviceComponent :device="device" />
+        <div class="flex flex-row">
+            <div v-for="(device, dev_id) in props.environment.devices" :key="dev_id">
+                <DeviceComponent :device="device" />
+            </div>
         </div>
     </section>
 </template>
