@@ -1,12 +1,11 @@
 <script setup lang="ts">    
-    import DeviceComponent from '@/components/DeviceComponent.vue';
-import EnvironmentComponent from '@/components/EnvironmentComponent.vue';
-import { Device, Environment } from '@/models/devices';
+    import EnvironmentComponent from '@/components/EnvironmentComponent.vue';
+    import { Device, Environment } from '@/models/devices';
     import { reactive, ref } from 'vue';
 
     const environments: Array<Environment> = reactive([]);
         
-        const ar: Device = reactive(new Device());
+    const ar: Device = reactive(new Device());
     ar.name = 'Ar condicionado';
     ar.color = '#3266a8';
     ar.icon = 'heat_pump';
@@ -42,14 +41,13 @@ import { Device, Environment } from '@/models/devices';
     cozinha.devices = [cafeteira];
  
     environments.push(sala);  
-    environments.push(cozinha);    
-   
+    environments.push(cozinha);  
     
   </script>
 
-<template>
+<template>    
     <main class="flex flex-column text-center justify-content-center align-items-center">
-        <h1>Devices page!!!!</h1>
+        <h1>Seus Dispositivos 🚥</h1>
         <section class="environments flex flex-column border-round-sm">
             <div v-for="(environment, env_id) in environments" :key="env_id">
                 <EnvironmentComponent :environment="environment"/>
@@ -70,3 +68,4 @@ import { Device, Environment } from '@/models/devices';
         }
     }
 </style>
+
