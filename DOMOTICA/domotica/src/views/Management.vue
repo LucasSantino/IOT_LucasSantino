@@ -2,6 +2,15 @@
     import { Device, Environment } from '@/models/devices';
     import { reactive, ref, type Ref } from 'vue';
     import EnvironmentComponent from '@/components/EnvironmentComponent.vue';
+    import { useDeviceRepository } from '@/stores/deviceRepository';
+
+    const showNewEnvForm = ref(false);
+    const newEnv = reactive(new Environment());
+    const saveNewEnv = ()=> {
+        useDeviceRepository().addEnvironment(newEnv);
+        // newEnv.name = '';
+        // newEnv.devices = [];
+    }
 
     const environments: Array<Environment> = reactive([]);
     const selectEnvironment = ref(new Environment());
@@ -52,19 +61,22 @@
             <div class="flex flex-row">
                 <label for="">Ambiente:</label>
                 <select name="" id="" v-model="selectEnvironment">
-                    <option v-for="(currentEnv,envId) in environments" 
+                    <option v-for="(currentEnv,envId) in useDeviceRepository().environments" 
                      :key="envId" :value="currentEnv" >
                         {{ currentEnv.name }}
-                    </option>                
+                    </option>      
+                    <option v-if="useDeviceRepository().environments.length == 0" value="">
+                        Sem Componentes!
+                    </option>          
                 </select>
-                <button>
+                <button @click="()=> showNewEnvForm = true">
                     <span class="icons material-icons-round ">add</span> 
                 </button>
-                <div>
+                <div v-show="showNewEnvForm">
                     <label for="env-name">Nome: </label>
-                    <input id="env-name" type="text">
+                    <input id="env-name" type="text" v-model="newEnv.name">
                 </div>
-                <button>
+                <button v-show="showNewEnvForm" @click="saveNewEnv">
                     <span class="icons material-icons-round ">save</span> 
                 </button>
             </div>
