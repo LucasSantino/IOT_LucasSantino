@@ -41,12 +41,12 @@
     cozinha.name = 'Cozinha';
     cozinha.devices = [cafeteira];
  
-    environments.push(cozinha);  
-    environments.push(sala);  
+    //environments.push(cozinha);  
+    //environments.push(sala);  
 </script>
 
 <template>  
-    <main class="flex flex-column text-center justify-content-center align-items-center">        
+    <main class="flex flex-column text-center justify-content-center align-items-center">     
         <h1>Gerencie seus Dispositivos! ⚡</h1>
         <section class="environments flex flex-column border-round-sm">            
             <div class="flex flex-row">
@@ -57,9 +57,20 @@
                         {{ currentEnv.name }}
                     </option>                
                 </select>
+                <button>
+                    <span class="icons material-icons-round ">add</span> 
+                </button>
+                <div>
+                    <label for="env-name">Nome: </label>
+                    <input id="env-name" type="text">
+                </div>
+                <button>
+                    <span class="icons material-icons-round ">save</span> 
+                </button>
             </div>
             <div>
-                <EnvironmentComponent :environment="selectEnvironment" />
+                <EnvironmentComponent :showDeviceButtons="false" 
+                    :environment="selectEnvironment" />
             </div>
         </section>
     </main>  
