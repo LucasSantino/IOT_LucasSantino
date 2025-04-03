@@ -1,11 +1,21 @@
-export class Caracters {
+export class Character {
+    image: string = ""; 
     name: string = "";
-    state: boolean = false;
-    color: string = "#827d85";
-    icon: string = "device";
+    height: string = "";
+    mass: string = "";
+    hair_color: string = "";
+    skin_color: string = "";
+    eye_color: string = "";
+    birth_year: string = "";
+    gender: string = "";
+    homeworld: string = "";
+    films: string[] = []; 
+    species: string[] = []; 
+    vehicles: string[] = []; 
+    starships: string[] = []; 
 }
 
-export class Environment {
+export class Universe {
     name: string = "";
-    devices: Array<Caracters> = []
+    characters: Array<Character> = [];
 }
