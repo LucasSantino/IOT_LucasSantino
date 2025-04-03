@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Favorite from '@/views/FavoriteCaracters.vue'
 import Management from '@/views/ManegementCaracters.vue'
-import Notfound from '@/views/NotFound.vue'
+import Notfound from '@/views/Notfound.vue'
 import FavoriteCaracters from '@/views/FavoriteCaracters.vue'
 import ManegementCaracters from '@/views/ManegementCaracters.vue'
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.VITE_BASE_URL || '/'),
     routes: [    
       {
         component: FavoriteCaracters,
@@ -19,7 +19,7 @@ const router = createRouter({
         name: 'management'
       },
       {
-        component: NotFound,
+        component: Notfound,
         path: '/:pathMatch(.*)*'
       }
     ],
