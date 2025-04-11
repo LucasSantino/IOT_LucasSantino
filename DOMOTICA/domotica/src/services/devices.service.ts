@@ -1,11 +1,10 @@
-import { ApiResponse, Device, Environment } from "@/models/devices";
+import type { ApiResponse, Device, Environment, NewDevice } from "@/models/devices";
 import { getCdn, getApi } from "./services.config";
 
-export const getDevices = (): Promise<ApiResponse<Device>>=> {
+export const getDevices = (): Promise<ApiResponse<Device>>=> {    
     return getCdn().get("?content_type=device");
-
 }
 
-export const getEnvironments = (): Promise<ApiResponse<Environment>>=> {
-    return getCdn().get("?content_type=environment");
+export const saveDevice = (device:NewDevice): Promise<void>=> {    
+    return getApi().post("/", device);
 }
