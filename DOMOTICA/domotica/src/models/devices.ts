@@ -12,10 +12,10 @@ export class Environment {
 
 
 
-export class DeviceResponseItem {
-    fields: Device = new Device();
+export class ResponseItem<T> {
+    fields: T|null = null;
 }
 
-export class DeviceResponse {
-    items: Array<DeviceResponseItem>=[]
+export class ApiResponse<T> {
+    items: Array<ResponseItem<T>> = []
 }
