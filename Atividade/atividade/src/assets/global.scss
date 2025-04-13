@@ -1,0 +1,18 @@
+@use "primeflex/primeflex.css";
+
+@use "reset.scss";
+@use "variables.scss";
+
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap');
+
+#app{
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: var(--background-light-color);
+    font-family: 'Dosis';
+}
+
+.teste{
+    background-color: aqua;
+}
+
