@@ -1,4 +1,5 @@
 export class Character {
+    charactersId: string = ""; 
     image: string = ""; 
     name: string = "";
     height: string = "";
@@ -15,7 +16,8 @@ export class Character {
     starships: string[] = []; 
 }
 
-export class Universe {
+
+export class Space {
     name: string = "";
-    characters: Array<Character> = [];
+    characters: Array<Character> = []
 }
