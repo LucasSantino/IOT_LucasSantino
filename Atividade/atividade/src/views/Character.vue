@@ -87,7 +87,7 @@ main {
   h2 {
     color: #ffd700;
     text-shadow: 1px 1px 2px black;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     font-size: 2rem;
   }
 
