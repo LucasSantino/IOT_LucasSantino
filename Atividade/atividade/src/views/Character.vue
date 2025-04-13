@@ -1,23 +1,25 @@
 <script setup lang="ts">
 import { useCharacterStore } from '@/stores/characterStore';
 import CharacterComponente from '@/components/CharacterComponente.vue';
-import { ref, computed } from 'vue'; // Importando 'computed'
+import { ref, computed, onMounted } from 'vue';
 
-// Acessa o store de personagens
-const store = useCharacterStore();  
+const store = useCharacterStore();
 
-// Variáveis para controle de páginas
+// Carregar personagens quando a página for aberta
+onMounted(() => {
+  store.loadCharacters();
+});
+
+// Controle de paginação
 const currentPage = ref(1);
-const itemsPerPage = 20; // Número total de cards por página
+const itemsPerPage = 20;
 
-// Função para pegar os personagens da página atual
 const paginatedCharacters = computed(() => {
   const startIndex = (currentPage.value - 1) * itemsPerPage;
   const endIndex = currentPage.value * itemsPerPage;
-  return store.spaces[0]?.persons.slice(startIndex, endIndex); // Garantindo que 'spaces' e 'persons' estão definidos
+  return store.spaces[0]?.persons.slice(startIndex, endIndex);
 });
 
-// Funções para navegação entre as páginas
 const nextPage = () => {
   if (currentPage.value * itemsPerPage < store.spaces[0]?.persons.length) {
     currentPage.value++;
@@ -38,9 +40,7 @@ const prevPage = () => {
     <section class="spaces flex flex-column align-items-center">
       <h2>{{ store.spaces[0]?.name }}</h2>
 
-      <!-- Cards Wrapper -->
       <div class="cards-wrapper">
-        <!-- Loop para renderizar os cards -->
         <div v-for="(person, index) in paginatedCharacters" :key="index" class="card-item">
           <CharacterComponente
             :character="person"
@@ -50,7 +50,6 @@ const prevPage = () => {
         </div>
       </div>
 
-      <!-- Paginação -->
       <div class="pagination">
         <button @click="prevPage" :disabled="currentPage === 1">Anterior</button>
         <span>Página {{ currentPage }}</span>
@@ -64,7 +63,7 @@ const prevPage = () => {
 main {
   width: 100vw;
   min-height: 100vh;
-  background-image: url('@/images/starwars_wallpaper.jpg'); 
+  background-image: url('@/images/starwars_wallpaper.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -72,28 +71,30 @@ main {
   color: white;
 
   .spaces {
-    width: 90vw;
+    width: 92vw;
     min-height: 95vh;
-    background-color: rgba(0, 0, 0, 0.4); // Fundo escuro translúcido
+    background-color: rgba(0, 0, 0, 0.45);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 1rem;
+    padding: 3rem 2rem;
     border-radius: 10px;
   }
 
   h1 {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     text-shadow: 1px 1px 4px black;
   }
 
   h2 {
     color: #ffd700;
     text-shadow: 1px 1px 2px black;
+    margin-bottom: 3rem;
+    font-size: 2rem;
   }
 
   .cards-wrapper {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 cards por linha */
-    gap: 1rem; /* Espaçamento entre os cards */
+    grid-template-columns: repeat(5, 1fr); // 5 por linha
+    gap: 0.6rem; // menor espaçamento
     width: 100%;
     margin-bottom: 2rem;
   }

@@ -9,6 +9,7 @@ export const useCharacterStore = defineStore('characterStore', {
   }),
 
   actions: {
+    // ✅ Mantido para uso interno
     async fetchCharacters() {
       try {
         let url = 'https://swapi.dev/api/people/';
@@ -32,7 +33,8 @@ export const useCharacterStore = defineStore('characterStore', {
             species: char.species,
             vehicles: char.vehicles,
             starships: char.starships,
-            image: 'https://static.wikia.nocookie.net/herois/images/1/12/Luke_Skywalker_Jedi_robe.webp/revision/latest?cb=20240317034233&path-prefix=pt-br',
+            image:
+              'https://static.wikia.nocookie.net/herois/images/1/12/Luke_Skywalker_Jedi_robe.webp/revision/latest?cb=20240317034233&path-prefix=pt-br',
           }));
 
           allCharacters.push(...characters);
@@ -48,6 +50,11 @@ export const useCharacterStore = defineStore('characterStore', {
       } catch (err) {
         console.error('Erro ao buscar personagens:', err);
       }
+    },
+
+    // ✅ Alias para funcionar com Character.vue
+    async loadCharacters() {
+      await this.fetchCharacters();
     },
 
     setSpaces(spaces: { name: string; persons: Character[] }[]) {
