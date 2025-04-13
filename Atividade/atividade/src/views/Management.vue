@@ -1,29 +1,71 @@
 <script setup lang="ts">
-import { Character, Space } from '@/models/Character';
-import { reactive, ref, onMounted } from 'vue';
+import { Character } from '@/models/Character';
+import { ref, onMounted } from 'vue';
 import { useCharacterStore } from '@/stores/characterStore';
+import axios from 'axios';
 import CharacterComponent from '@/components/CharacterComponente.vue';
 
 const store = useCharacterStore();
-const newPerson = reactive(new Character());
-const showForm = ref(false);
+const searchInput = ref('');
+const searchResult = ref<Character | null>(null);
 
-onMounted(async () => {
-  await store.fetchCharacters();
-});
+const searchCharacter = async () => {
+  const input = searchInput.value.trim();
+  if (!input) return;
 
-const addCharacter = () => {
-  if (newPerson.name && newPerson.birth_year && newPerson.height) {
-    const newChar = reactive(new Character());
-    Object.assign(newChar, newPerson);
-    newChar.image = "person";
+  try {
+    let data;
+    if (input.startsWith('/people/')) {
+      const url = `https://swapi.dev/api${input}`;
+      const res = await axios.get(url);
+      data = res.data;
+    } else {
+      const res = await axios.get(`https://swapi.dev/api/people/?search=${input}`);
+      data = res.data.results[0];
+      if (!data) {
+        searchResult.value = null;
+        return;
+      }
+    }
 
-    store.addCharacterToSpace(0, newChar);
+    const newChar: Character = {
+      name: data.name,
+      birth_year: data.birth_year,
+      height: data.height,
+      mass: data.mass,
+      hair_color: data.hair_color,
+      skin_color: data.skin_color,
+      eye_color: data.eye_color,
+      gender: data.gender,
+      homeworld: data.homeworld,
+      films: data.films,
+      species: data.species,
+      vehicles: data.vehicles,
+      starships: data.starships,
+      image:
+        'https://static.wikia.nocookie.net/herois/images/1/12/Luke_Skywalker_Jedi_robe.webp/revision/latest?cb=20240317034233&path-prefix=pt-br',
+    };
 
-    newPerson.name = '';
-    newPerson.birth_year = '';
-    newPerson.height = '';
-    newPerson.mass = '';
+    searchResult.value = newChar;
+  } catch (error) {
+    console.error('Erro ao buscar personagem:', error);
+    searchResult.value = null;
+  }
+};
+
+const addSearchedCharacter = () => {
+  if (searchResult.value) {
+    // Se ainda não existir um espaço, criamos um
+    if (!store.spaces.length) {
+      store.setSpaces([
+        { name: 'Holocrons da Força', persons: [searchResult.value] }
+      ]);
+    } else {
+      store.addCharacterToSpace(0, searchResult.value);
+    }
+
+    searchResult.value = null;
+    searchInput.value = '';
   }
 };
 
@@ -34,22 +76,24 @@ const deleteCharacter = (index: number) => {
 
 <template>
   <main class="flex flex-column text-center justify-content-center align-items-center">
-    <h1>Gerenciamento de Personagens! </h1>
+    <h1>Gerenciamento de Personagens!</h1>
 
-    <button @click="showForm = !showForm">
-      <span class="material-icons"></span> Adicionar Personagem
-    </button>
-
-    <div v-if="showForm" class="form-box">
-      <input v-model="newPerson.name" placeholder="Nome" />
-      <input v-model="newPerson.birth_year" placeholder="Idade" type="number" />
-      <input v-model="newPerson.height" placeholder="Altura" type="number" step="0.01" />
-      <input v-model="newPerson.mass" placeholder="Peso" type="number" />
-      <button @click="addCharacter">Adicionar Personagem</button>
+    <div class="form-box">
+      <input v-model="searchInput" placeholder="Digite um nome ou /people/1/" />
+      <button @click="searchCharacter">Buscar</button>
     </div>
 
-    <section class="spaces flex flex-wrap justify-content-center">
-      <div v-for="(person, index) in store.spaces[0]?.persons" :key="index">
+    <div v-if="searchResult" class="preview-box">
+      <CharacterComponent
+        :character="searchResult"
+        :id="999"
+        :showButtons="false"
+      />
+      <button @click="addSearchedCharacter">Adicionar Personagem</button>
+    </div>
+
+    <section v-if="store.spaces[0]?.persons.length" class="spaces flex flex-wrap justify-content-center">
+      <div v-for="(person, index) in store.spaces[0].persons" :key="index">
         <CharacterComponent
           :character="person"
           :id="index"
@@ -65,7 +109,7 @@ const deleteCharacter = (index: number) => {
 main {
   width: 100vw;
   min-height: 100vh;
-  background-image: url('@/images/starwars_wallpaper.jpg'); 
+  background-image: url('@/images/starwars_wallpaper.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -92,7 +136,7 @@ main {
     background-color: #e53935;
   }
 
-  .form-box {
+  .form-box, .preview-box {
     background-color: rgba(0, 0, 0, 0.6);
     padding: 1rem;
     border-radius: 8px;

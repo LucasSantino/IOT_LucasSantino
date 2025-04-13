@@ -5,12 +5,10 @@ import { ref, computed, onMounted } from 'vue';
 
 const store = useCharacterStore();
 
-// Carregar personagens quando a página for aberta
-onMounted(() => {
-  store.loadCharacters();
+onMounted(async () => {
+  await store.loadCharacters();
 });
 
-// Controle de paginação
 const currentPage = ref(1);
 const itemsPerPage = 20;
 

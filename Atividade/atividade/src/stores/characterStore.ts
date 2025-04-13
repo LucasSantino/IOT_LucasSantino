@@ -6,10 +6,10 @@ export const useCharacterStore = defineStore('characterStore', {
   state: () => ({
     characters: [] as Character[],
     spaces: [] as { name: string; persons: Character[] }[],
+    charactersLoaded: false, // ✅ novo controle
   }),
 
   actions: {
-    // ✅ Mantido para uso interno
     async fetchCharacters() {
       try {
         let url = 'https://swapi.dev/api/people/';
@@ -47,14 +47,17 @@ export const useCharacterStore = defineStore('characterStore', {
             persons: allCharacters,
           },
         ];
+
+        this.charactersLoaded = true; // ✅ marca como carregado
       } catch (err) {
         console.error('Erro ao buscar personagens:', err);
       }
     },
 
-    // ✅ Alias para funcionar com Character.vue
     async loadCharacters() {
-      await this.fetchCharacters();
+      if (!this.charactersLoaded) {
+        await this.fetchCharacters();
+      }
     },
 
     setSpaces(spaces: { name: string; persons: Character[] }[]) {
