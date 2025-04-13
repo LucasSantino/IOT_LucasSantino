@@ -20,50 +20,62 @@ const handleDelete = () => {
 };
 </script>
 
-
 <template>
-    <section class="card" @click="toggleExpanded">      
-      <h5>{{ props.character.name }}</h5>
-  
-      <div v-if="expanded">
-        <p><strong>Idade:</strong> {{ props.character.birth_year }}</p>
-        <p><strong>Altura:</strong> {{ props.character.height }}</p>
-        <p><strong>Peso:</strong> {{ props.character.mass }}</p>
-        <p><strong>Imagem:</strong> {{ props.character.image }}</p>
-      </div>
-      <div v-else class="hint">Clique para ver mais</div>
-        <!-- Ícone de deletar só aparece se showButtons for true -->
-        <div class="delete-btn" v-if="props.showButtons" @click.stop="handleDelete">
-        <span class="material-icons">delete</span>
-      </div>
-    </section>
-  </template>
-  
-  <style scoped lang="scss">
-  .card {
-    background-color: rgb(50, 187, 141);
-    border: 1px solid rgb(187, 51, 51);
-    width: 12rem;
-    margin: 0.5rem;
-    padding: 1rem;
-    text-align: center;
-    border-radius: 0.5rem;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  <section class="card" @click="toggleExpanded">      
+    <h5>{{ props.character.name }}</h5>
 
+    <div v-if="expanded">
+      <p><strong>Idade:</strong> {{ props.character.birth_year }}</p>
+      <p><strong>Altura:</strong> {{ props.character.height }}</p>
+      <p><strong>Peso:</strong> {{ props.character.mass }}</p>
+      <p><strong>Imagem:</strong> {{ props.character.image }}</p>
+    </div>
     
-  
-    &:hover {
-      transform: scale(1.02);
-      background-color: rgb(46, 170, 129);
+    <div v-else class="hint">Clique para ver mais</div>
+
+    <div class="delete-btn" v-if="props.showButtons" @click.stop="handleDelete">
+      <span class="material-icons">delete</span>
+    </div>
+  </section>
+</template>
+
+<style scoped lang="scss">
+.card {
+  background-color: rgba(46, 46, 46, 0.75); // cinza escuro com 75% de opacidade
+  border: 1px solid #555;
+  width: 12rem;
+  margin: 0.5rem;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #f0f0f0;
+
+  &:hover {
+    transform: scale(1.02);
+    background-color: rgba(58, 58, 58, 0.85); // um pouco mais opaco no hover
+  }
+
+  .hint {
+    font-size: 0.85rem;
+    color: #ccc;
+    opacity: 0.8;
+  }
+
+  .delete-btn {
+    margin-top: 0.5rem;
+    cursor: pointer;
+    color: #f44336;
+
+    .material-icons {
+      font-size: 1.2rem;
     }
-  
-    .hint {
-      font-size: 0.85rem;
-      color: #333;
-      opacity: 0.7;
+
+    &:hover {
+      color: #e53935;
     }
   }
-  </style>
-  
+}
+</style>
