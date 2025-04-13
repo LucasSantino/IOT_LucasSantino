@@ -52,9 +52,9 @@ const handleDelete = () => {
   background-color: rgba(46, 46, 46, 0.75);
   border: 1px solid #555;
   width: 100%;
-  max-width: 180px;
-  min-height: 10rem;
-  margin: 0.5rem;
+  max-width: 220px; /* Aumentar a largura */
+  min-height: 12rem; /* Ajustar altura */
+  margin: 0.25rem; /* Diminuir o espaçamento entre os cards */
   padding: 1rem;
   text-align: center;
   border-radius: 0.5rem;
@@ -63,7 +63,7 @@ const handleDelete = () => {
   transition: all 0.4s ease;
   color: #f0f0f0;
   overflow: hidden;
-  flex: 1 1 calc(16.66% - 1rem); /* Máximo 6 por linha */
+  flex: 1 1 calc(20% - 0.5rem); /* Ajustar o flex para se ajustar aos novos cards */
 
   &:hover {
     transform: scale(1.02);
@@ -71,7 +71,7 @@ const handleDelete = () => {
   }
 
   &.expanded {
-    max-width: 220px;
+    max-width: 240px;
     min-height: 14rem;
   }
 
@@ -96,3 +96,4 @@ const handleDelete = () => {
   }
 }
 </style>
+
