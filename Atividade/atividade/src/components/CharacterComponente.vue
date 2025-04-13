@@ -25,11 +25,41 @@ const handleDelete = () => {
     <h5>{{ props.character.name }}</h5>
 
     <div v-if="expanded">
-      <p><strong>Idade:</strong> {{ props.character.birth_year }}</p>
-      <p><strong>Altura:</strong> {{ props.character.height }}</p>
-      <p><strong>Peso:</strong> {{ props.character.mass }}</p>
-      <p><strong>Imagem:</strong> {{ props.character.image }}</p>
-    </div>
+  <p><strong>Nome:</strong> {{ props.character.name }}</p>
+  <p><strong>Ano de nascimento:</strong> {{ props.character.birth_year }}</p>
+  <p><strong>Altura:</strong> {{ props.character.height }} cm</p>
+  <p><strong>Peso:</strong> {{ props.character.mass }} kg</p>
+  <p><strong>Cor do cabelo:</strong> {{ props.character.hair_color }}</p>
+  <p><strong>Cor da pele:</strong> {{ props.character.skin_color }}</p>
+  <p><strong>Cor dos olhos:</strong> {{ props.character.eye_color }}</p>
+  <p><strong>Gênero:</strong> {{ props.character.gender }}</p>
+  <p><strong>Planeta Natal:</strong> {{ props.character.homeworld }}</p>
+
+  <p><strong>Filmes:</strong>
+    <ul>
+      <li v-for="(film, index) in props.character.films" :key="index">{{ film }}</li>
+    </ul>
+  </p>
+
+  <p><strong>Espécies:</strong>
+    <ul>
+      <li v-for="(specie, index) in props.character.species" :key="index">{{ specie }}</li>
+    </ul>
+  </p>
+
+  <p><strong>Veículos:</strong>
+    <ul>
+      <li v-for="(vehicle, index) in props.character.vehicles" :key="index">{{ vehicle }}</li>
+    </ul>
+  </p>
+
+  <p><strong>Naves:</strong>
+    <ul>
+      <li v-for="(starship, index) in props.character.starships" :key="index">{{ starship }}</li>
+    </ul>
+  </p>
+</div>
+
     
     <div v-else class="hint">Clique para ver mais</div>
 
