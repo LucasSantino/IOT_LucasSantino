@@ -8,7 +8,7 @@ const store = useCharacterStore();
 
 <template>
   <main class="flex flex-column text-center justify-content-center align-items-center">
-    <h1>Seus Personagens! 😎</h1>
+    <h1>Personagens: Star wars!</h1>
     
     <section class="spaces flex flex-wrap justify-content-center">
       <div v-for="(person, index) in store.spaces[0]?.persons" :key="index">
