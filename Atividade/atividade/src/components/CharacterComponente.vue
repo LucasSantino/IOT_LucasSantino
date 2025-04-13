@@ -21,7 +21,7 @@ const handleDelete = () => {
 </script>
 
 <template>
-  <section class="card" @click="toggleExpanded">      
+  <section class="card" :class="{ expanded: expanded }" @click="toggleExpanded">      
     <h5>{{ props.character.name }}</h5>
 
     <div v-if="expanded">
@@ -41,21 +41,28 @@ const handleDelete = () => {
 
 <style scoped lang="scss">
 .card {
-  background-color: rgba(46, 46, 46, 0.75); // cinza escuro com 75% de opacidade
+  background-color: rgba(46, 46, 46, 0.75);
   border: 1px solid #555;
   width: 12rem;
+  min-height: 10rem;
   margin: 0.5rem;
   padding: 1rem;
   text-align: center;
   border-radius: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   color: #f0f0f0;
+  overflow: hidden;
 
   &:hover {
     transform: scale(1.02);
-    background-color: rgba(58, 58, 58, 0.85); // um pouco mais opaco no hover
+    background-color: rgba(58, 58, 58, 0.85);
+  }
+
+  &.expanded {
+    width: 16rem;
+    min-height: 14rem;
   }
 
   .hint {
