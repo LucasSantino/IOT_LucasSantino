@@ -22,6 +22,9 @@ const handleDelete = () => {
 
 <template>
   <section class="card" :class="{ expanded: expanded }" @click="toggleExpanded">
+    <!-- ✅ Imagem do personagem -->
+    <img v-if="props.character.image" :src="props.character.image" :alt="props.character.name" class="character-image" />
+
     <h5>{{ props.character.name }}</h5>
 
     <div v-if="expanded">
@@ -52,9 +55,9 @@ const handleDelete = () => {
   background-color: rgba(46, 46, 46, 0.75);
   border: 1px solid #555;
   width: 100%;
-  max-width: 220px; /* Aumentar a largura */
-  min-height: 12rem; /* Ajustar altura */
-  margin: 0.25rem; /* Diminuir o espaçamento entre os cards */
+  max-width: 220px;
+  min-height: 12rem;
+  margin: 0.25rem;
   padding: 1rem;
   text-align: center;
   border-radius: 0.5rem;
@@ -63,7 +66,7 @@ const handleDelete = () => {
   transition: all 0.4s ease;
   color: #f0f0f0;
   overflow: hidden;
-  flex: 1 1 calc(20% - 0.5rem); /* Ajustar o flex para se ajustar aos novos cards */
+  flex: 1 1 calc(20% - 0.5rem);
 
   &:hover {
     transform: scale(1.02);
@@ -73,6 +76,14 @@ const handleDelete = () => {
   &.expanded {
     max-width: 240px;
     min-height: 14rem;
+  }
+
+  .character-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .hint {
@@ -96,4 +107,3 @@ const handleDelete = () => {
   }
 }
 </style>
-
