@@ -14,9 +14,9 @@ export const useCharacterStore = defineStore('characterStore', {
       try {
         // Dicionário de imagens para personagens conhecidos
         const characterImages: Record<string, string> = {
-          'Luke Skywalker': 'https://static.wikia.nocookie.net/starwars/images/9/9b/Luke-rotjpromo.jpg',
-          'C-3PO': 'https://static.wikia.nocookie.net/starwars/images/5/5c/C-3PO_droid.png',
-          'R2-D2': 'https://static.wikia.nocookie.net/starwars/images/3/39/R2-D2_Droid.png',
+          'Luke Skywalker': 'https://media.contentapi.ea.com/content/dam/star-wars-battlefront-2/images/2019/08/swbf2-refresh-hero-large-heroes-page-luke-skywalker-16x9-xl.jpg.adapt.crop1x1.320w.jpg',
+          'C-3PO': 'https://upload.wikimedia.org/wikipedia/pt/6/66/C-3PO.jpg',
+          'R2-D2': 'https://upload.wikimedia.org/wikipedia/pt/3/39/R2-D2_Droid.png',
           'Darth Vader': 'https://static.wikia.nocookie.net/starwars/images/5/5c/Darth_Vader.jpg',
           'Leia Organa': 'https://static.wikia.nocookie.net/starwars/images/8/8f/Leia_Organa_TROS.png',
           'Owen Lars': 'https://static.wikia.nocookie.net/starwars/images/f/f4/OwenLars.jpg',
