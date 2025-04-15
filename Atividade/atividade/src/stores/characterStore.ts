@@ -20,7 +20,7 @@ export const useCharacterStore = defineStore('characterStore', {
           'Darth Vader': 'https://i.pinimg.com/564x/51/e3/7c/51e37c2b688170cdc07888eba287bfd1.jpg',
           'Leia Organa': 'https://upload.wikimedia.org/wikipedia/pt/thumb/e/e9/Carrie_Fisher_como_Princesa_Leia.jpg/260px-Carrie_Fisher_como_Princesa_Leia.jpg',
           'Owen Lars': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRVF6IjPfHoJMwgO_Qn2DH5LolGTOQ7Aunsg&s',
-          'Beru Whitesun Lars': 'https://static.wikia.nocookie.net/starwars/images/1/1d/BeruCardTrader.png',
+          'Beru Whitesun Lars': 'https://static.wikia.nocookie.net/starwars/images/1/1d/BeruCardTrader.png', 
           'R5-D4': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDpSPwfVMI6vguGPI750fSu1e9xZvj1phFkILoFrU4xtUUnsTmb1X1tuQ_xDmFtxeMG1E&usqp=CAU',
           'Biggs Darklighter': 'https://lumiere-a.akamaihd.net/v1/images/image_606ff7f7.jpeg?region=0%2C0%2C1560%2C878',
           'Obi-Wan Kenobi': 'https://jpimg.com.br/uploads/2020/01/obiwan-e1585919300283.png',
