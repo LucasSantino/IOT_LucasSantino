@@ -41,9 +41,6 @@ const handleDelete = () => {
       <p><strong>Naves:</strong> {{ props.character.starships.join(', ') }}</p>
       <p><strong>Filmes:</strong> {{ props.character.films.join(', ') }}</p>
     </div>
-
-    <div v-else class="hint">Clique para ver mais</div>
-
     <div class="delete-btn" v-if="props.showButtons" @click.stop="handleDelete">
       <span class="material-icons">delete</span>
     </div>
