@@ -22,7 +22,7 @@ const handleDelete = () => {
 
 <template>
   <section class="card" :class="{ expanded: expanded }" @click="toggleExpanded">
-    <!-- ✅ Imagem do personagem -->
+    
     <img v-if="props.character.image" :src="props.character.image" :alt="props.character.name" class="character-image" />
 
     <h5>{{ props.character.name }}</h5>
