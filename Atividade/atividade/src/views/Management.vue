@@ -16,11 +16,11 @@ const searchCharacter = async () => {
   try {
     let data;
     if (input.startsWith('/people/')) {
-      const url = `https://swapi.dev/api${input}`;
+      const url = `https://swapi.py4e.com/api/${input}`;
       const res = await axios.get(url);
       data = res.data;
     } else {
-      const res = await axios.get(`https://swapi.dev/api/people/?search=${input}`);
+      const res = await axios.get(`https://swapi.py4e.com/api/people/?search=${input}`);
       data = res.data.results[0];
       if (!data) {
         searchResult.value = null;
