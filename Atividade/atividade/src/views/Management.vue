@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { Character } from '@/models/Character';
-import { ref, onMounted } from 'vue';
-import { useCharacterStore } from '@/stores/characterStore';
+import { ref } from 'vue';
 import axios from 'axios';
 import CharacterComponent from '@/components/CharacterComponente.vue';
 
-const store = useCharacterStore();
 const searchInput = ref('');
 const searchResult = ref<Character | null>(null);
+const characters = ref<Character[]>([]); // Armazena localmente os personagens
 
 const searchCharacter = async () => {
   const input = searchInput.value.trim();
@@ -55,22 +54,14 @@ const searchCharacter = async () => {
 
 const addSearchedCharacter = () => {
   if (searchResult.value) {
-    // Se ainda não existir um espaço, criamos um
-    if (!store.spaces.length) {
-      store.setSpaces([
-        { name: 'Holocrons da Força', persons: [searchResult.value] }
-      ]);
-    } else {
-      store.addCharacterToSpace(0, searchResult.value);
-    }
-
+    characters.value.push(searchResult.value);
     searchResult.value = null;
     searchInput.value = '';
   }
 };
 
 const deleteCharacter = (index: number) => {
-  store.removeCharacterFromSpace(0, index);
+  characters.value.splice(index, 1);
 };
 </script>
 
@@ -92,8 +83,8 @@ const deleteCharacter = (index: number) => {
       <button @click="addSearchedCharacter">Adicionar Personagem</button>
     </div>
 
-    <section v-if="store.spaces[0]?.persons.length" class="spaces flex flex-wrap justify-content-center">
-      <div v-for="(person, index) in store.spaces[0].persons" :key="index">
+    <section v-if="characters.length" class="spaces flex flex-wrap justify-content-center">
+      <div v-for="(person, index) in characters" :key="index">
         <CharacterComponent
           :character="person"
           :id="index"
@@ -104,6 +95,7 @@ const deleteCharacter = (index: number) => {
     </section>
   </main>
 </template>
+
 
 <style scoped lang="scss">
 main {
