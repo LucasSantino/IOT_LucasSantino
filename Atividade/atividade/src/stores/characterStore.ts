@@ -53,7 +53,7 @@ export const useCharacterStore = defineStore('characterStore', {
         // Imagem padrão para personagens sem imagem específica
         const defaultImage = 'https://static.wikia.nocookie.net/starwars/images/6/6f/Star_Wars_Logo.png';
 
-        let url = 'https://swapi.dev/api/people/';
+        let url = 'https://swapi.py4e.com/api/people/';
         let allCharacters: Character[] = [];
 
         // Carregar todos os personagens da API
