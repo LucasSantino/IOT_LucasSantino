@@ -67,7 +67,7 @@ const deleteCharacter = (index: number) => {
 
 <template>
   <main class="flex flex-column text-center justify-content-center align-items-center">
-    <h1>Gerenciamento de Personagens!</h1>
+    <h1> Personagens Favoritos!</h1>
 
     <div class="form-box">
       <input v-model="searchInput" placeholder="Digite um nome ou /people/1/" />
