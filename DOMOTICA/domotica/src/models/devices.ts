@@ -1,4 +1,5 @@
 export class Device {
+    id: string = "";
     name: string = "";
     state: boolean = false;    
     icon: string = "device";
@@ -6,6 +7,7 @@ export class Device {
 }
 
 export class Environment {
+    id: string = "";
     name: string = "";
     devices: Array<Device> = []
 }
@@ -14,8 +16,13 @@ export class ResponseItem<T> {
     fields: T|null = null;
 }
 
+export class ResponseSys {
+    id: String = "";
+}
+
 export class ApiResponse<T> {
-    items: Array<ResponseItem<T>> = []
+    items: Array<ResponseItem<T>> = [];
+    sys: ResponseSys = new ResponseSys();
 }
 
 export class ApiAttribute<T> {

@@ -1,6 +1,5 @@
 import axios, {AxiosHeaders, type AxiosResponse } from "axios";
-export const BASE_URL = import.meta.env.BASE_URL;
-
+export const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const getCdn = ()=>{
     return getAxios('cdn');
@@ -16,8 +15,8 @@ export const getAxios =
      params: FormData = new FormData())=> {
 
     const token = target === 'cdn'? 
-        import.meta.env.CDN_TOKEN : 
-        import.meta.env.API_TOKEN;
+        import.meta.env.VITE_CDN_TOKEN : 
+        import.meta.env.VITE_API_TOKEN;
 
     headers.set('Authorization', `Bearer ${token}`);
     headers.set('Content-Type', 'application/json');
