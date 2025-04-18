@@ -3,16 +3,16 @@ import { Character } from '@/models/Character';
 import { ref } from 'vue';
 
 const props = defineProps({
-  character: { type: Character, required: true },
+  character: { type: Object as () => Character, required: true },
   showInfo: { type: Boolean, default: true },
   showButtons: { type: Boolean, default: true },
 });
 
 const emit = defineEmits(['delete']);
-const expanded = ref(false);
+const flipped = ref(false);
 
-const toggleExpanded = () => {
-  expanded.value = !expanded.value;
+const toggleFlip = () => {
+  flipped.value = !flipped.value;
 };
 
 const handleDelete = () => {
@@ -21,26 +21,36 @@ const handleDelete = () => {
 </script>
 
 <template>
-  <section class="card" :class="{ expanded: expanded }" @click="toggleExpanded">
-    
-    <img v-if="props.character.image" :src="props.character.image" :alt="props.character.name" class="character-image" />
+  <section class="card" @click="toggleFlip">
+    <div class="card-inner" :class="{ flipped: flipped }">
+      <!-- Parte da frente -->
+      <div class="card-front">
+        <img
+          v-if="props.character.image"
+          :src="props.character.image"
+          :alt="props.character.name"
+          class="character-image"
+        />
+        <h5>{{ props.character.name }}</h5>
+      </div>
 
-    <h5>{{ props.character.name }}</h5>
-
-    <div v-if="expanded">
-      <p><strong>Altura:</strong> {{ props.character.height }}</p>
-      <p><strong>Peso:</strong> {{ props.character.mass }}</p>
-      <p><strong>Cor do cabelo:</strong> {{ props.character.hair_color }}</p>
-      <p><strong>Cor da pele:</strong> {{ props.character.skin_color }}</p>
-      <p><strong>Cor dos olhos:</strong> {{ props.character.eye_color }}</p>
-      <p><strong>Ano de nascimento:</strong> {{ props.character.birth_year }}</p>
-      <p><strong>Gênero:</strong> {{ props.character.gender }}</p>
-      <p><strong>Planeta natal:</strong> {{ props.character.homeworld }}</p>
-      <p><strong>Espécies:</strong> {{ props.character.species.join(', ') }}</p>
-      <p><strong>Veículos:</strong> {{ props.character.vehicles.join(', ') }}</p>
-      <p><strong>Naves:</strong> {{ props.character.starships.join(', ') }}</p>
-      <p><strong>Filmes:</strong> {{ props.character.films.join(', ') }}</p>
+      <!-- Parte de trás -->
+      <div class="card-back">
+        <p><strong>Altura:</strong> {{ props.character.height }}</p>
+        <p><strong>Peso:</strong> {{ props.character.mass }}</p>
+        <p><strong>Cor do cabelo:</strong> {{ props.character.hair_color }}</p>
+        <p><strong>Cor da pele:</strong> {{ props.character.skin_color }}</p>
+        <p><strong>Cor dos olhos:</strong> {{ props.character.eye_color }}</p>
+        <p><strong>Ano de nascimento:</strong> {{ props.character.birth_year }}</p>
+        <p><strong>Gênero:</strong> {{ props.character.gender }}</p>
+        <p><strong>Planeta natal:</strong> {{ props.character.homeworld }}</p>
+        <p><strong>Espécies:</strong> {{ props.character.species.join(', ') }}</p>
+        <p><strong>Veículos:</strong> {{ props.character.vehicles.join(', ') }}</p>
+        <p><strong>Naves:</strong> {{ props.character.starships.join(', ') }}</p>
+        <p><strong>Filmes:</strong> {{ props.character.films.join(', ') }}</p>
+      </div>
     </div>
+
     <div class="delete-btn" v-if="props.showButtons" @click.stop="handleDelete">
       <span class="material-icons">delete</span>
     </div>
@@ -49,58 +59,110 @@ const handleDelete = () => {
 
 <style scoped lang="scss">
 .card {
-  background-color: rgba(46, 46, 46, 0.75);
-  border: 1px solid #555;
+  perspective: 1000px;
   width: 100%;
-  max-width: 220px;
-  min-height: 12rem;
-  margin: 0.25rem;
-  padding: 1rem;
-  text-align: center;
-  border-radius: 0.5rem;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+  max-width: 300px;
+  height: 500px;
+  margin: 0.5rem;
+  position: relative;
   cursor: pointer;
-  transition: all 0.4s ease;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
+  }
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+
+  &.flipped {
+    transform: rotateY(180deg);
+  }
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  backface-visibility: hidden;
+  border: 1px solid #555;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  padding: 1rem;
   color: #f0f0f0;
   overflow: hidden;
-  flex: 1 1 calc(20% - 0.5rem);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  @media (max-width: 768px) {
+    padding: 0.75rem;
+  }
+}
+
+.card-front {
+  z-index: 2;
+  background-color: rgba(46, 46, 46, 0.85);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  background-color: #2e2e2e;
+  text-align: left;
+  font-size: 0.85rem;
+  line-height: 1.2rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+    line-height: 1.1rem;
+  }
+}
+
+.character-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  @media (max-width: 768px) {
+    aspect-ratio: 2 / 3;
+  }
+}
+
+h5 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+}
+
+.delete-btn {
+  margin-top: 0.5rem;
+  cursor: pointer;
+  color: #f44336;
+
+  .material-icons {
+    font-size: 1.5rem;
+  }
 
   &:hover {
-    transform: scale(1.02);
-    background-color: rgba(58, 58, 58, 0.85);
-  }
-
-  &.expanded {
-    max-width: 240px;
-    min-height: 14rem;
-  }
-
-  .character-image {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .hint {
-    font-size: 0.85rem;
-    color: #ccc;
-    opacity: 0.8;
-  }
-
-  .delete-btn {
-    margin-top: 0.5rem;
-    cursor: pointer;
-    color: #f44336;
-
-    .material-icons {
-      font-size: 1.2rem;
-    }
-
-    &:hover {
-      color: #e53935;
-    }
+    color: #e53935;
   }
 }
 </style>
+

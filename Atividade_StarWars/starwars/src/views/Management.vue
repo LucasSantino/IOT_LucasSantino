@@ -6,7 +6,7 @@ import CharacterComponent from '@/components/CharacterComponente.vue';
 
 const searchInput = ref('');
 const searchResult = ref<Character | null>(null);
-const characters = ref<Character[]>([]); // Armazena localmente os personagens
+const characters = ref<Character[]>([]);
 
 const searchCharacter = async () => {
   const input = searchInput.value.trim();
@@ -14,11 +14,13 @@ const searchCharacter = async () => {
 
   try {
     let data;
-    if (input.startsWith('/people/')) {
-      const url = `https://swapi.py4e.com/api/${input}`;
+    if (/^\d+$/.test(input)) {
+      // Se a entrada for um número, busca diretamente pelo ID
+      const url = `https://swapi.py4e.com/api/people/${input}/`;
       const res = await axios.get(url);
       data = res.data;
     } else {
+      // Caso contrário, realiza a busca por nome
       const res = await axios.get(`https://swapi.py4e.com/api/people/?search=${input}`);
       data = res.data.results[0];
       if (!data) {
@@ -66,36 +68,46 @@ const deleteCharacter = (index: number) => {
 </script>
 
 <template>
-  <main class="flex flex-column text-center justify-content-center align-items-center">
-    <h1> Personagens Favoritos!</h1>
+  <main>
+    <!-- Barra superior -->
+    <header class="top-bar">
+      <h1>Personagens Favoritos!</h1>
 
-    <div class="form-box">
-      <input v-model="searchInput" placeholder="Digite um nome ou /people/1/" />
-      <button @click="searchCharacter">Buscar</button>
-    </div>
+      <div class="form-box">
+        <input v-model="searchInput" placeholder="Digite um nome ou /people/1/" />
+        <button @click="searchCharacter">Buscar</button>
+      </div>
+    </header>
 
-    <div v-if="searchResult" class="preview-box">
+    <!-- Preview do personagem buscado -->
+    <section v-if="searchResult" class="preview-container">
       <CharacterComponent
         :character="searchResult"
         :id="999"
         :showButtons="false"
       />
       <button @click="addSearchedCharacter">Adicionar Personagem</button>
-    </div>
+    </section>
 
-    <section v-if="characters.length" class="spaces flex flex-wrap justify-content-center">
-      <div v-for="(person, index) in characters" :key="index">
-        <CharacterComponent
-          :character="person"
-          :id="index"
-          :showButtons="true"
-          @delete="deleteCharacter"
-        />
+    <!-- Lista de personagens adicionados -->
+    <section v-if="characters.length" class="characters-container">
+      <div class="card-grid">
+        <div
+          v-for="(person, index) in characters"
+          :key="index"
+          class="card-wrapper"
+        >
+          <CharacterComponent
+            :character="person"
+            :id="index"
+            :showButtons="true"
+            @delete="deleteCharacter"
+          />
+        </div>
       </div>
     </section>
   </main>
 </template>
-
 
 <style scoped lang="scss">
 main {
@@ -107,52 +119,100 @@ main {
   background-repeat: no-repeat;
   padding: 2rem;
   color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.top-bar {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
 
   h1 {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     text-shadow: 1px 1px 4px black;
   }
 
-  button {
-    margin: 10px 0;
-    padding: 10px 15px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  button:hover {
-    background-color: #e53935;
-  }
-
-  .form-box, .preview-box {
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
+  .form-box {
     display: flex;
-    flex-direction: column;
     gap: 0.5rem;
-    width: 100%;
-    max-width: 500px;
+    justify-content: center;
+    flex-wrap: wrap;
 
     input {
       padding: 0.5rem;
       border: none;
       border-radius: 4px;
+      width: 300px;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      background-color: #eead2d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #eead2d;
     }
   }
+}
 
-  .spaces {
-    width: 90vw;
-    min-height: 95vh;
-    background-color: rgba(0, 0, 0, 0.4);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 1rem;
-    border-radius: 10px;
+.preview-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  margin: 1rem 0;
+  text-align: center;
+
+  button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #eead2d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
   }
+
+  button:hover {
+    background-color: #eead2d;
+  }
+}
+
+.characters-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 1rem;
+  border-radius: 10px;
+  width: 100%;
+  min-height: 40vh;
+  margin-bottom: 2rem;
+
+  .card-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); // cards por linha
+  gap: 1rem;
+  justify-items: center;
+}
+
+
+.card-wrapper {
+  width: 250px;
+  margin: 0.5rem;
+}
+
 }
 </style>

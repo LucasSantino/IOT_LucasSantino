@@ -5,7 +5,7 @@
   <main>
     <img class="background-image" src="@/images/starwars_notpagefound.jpg" alt="Not Found Background" />
     <div class="content">
-      <h1>404 Page not Found! 😢</h1>
+      <h1>404 Page not Found!</h1>
       <p>A página que você procura não existe...</p>
     </div>
   </main>
