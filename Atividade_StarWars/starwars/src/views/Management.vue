@@ -1,53 +1,42 @@
 <script setup lang="ts">
-import { Character } from '@/models/Character';
 import { ref } from 'vue';
-import axios from 'axios';
+import { useCharacterStore } from '@/stores/characterStore';
 import CharacterComponent from '@/components/CharacterComponente.vue';
 
 const searchInput = ref('');
 const searchResult = ref<Character | null>(null);
 const characters = ref<Character[]>([]);
+const characterStore = useCharacterStore();
+
+characterStore.loadCharacters(); // Carrega os personagens armazenados na pasta store
 
 const searchCharacter = async () => {
   const input = searchInput.value.trim();
   if (!input) return;
 
   try {
-    let data;
+    // Busca no array local de personagens do store
+    const allCharacters = characterStore.spaces[0]?.persons || [];
+    
+    let foundCharacter: Character | undefined;
+    
     if (/^\d+$/.test(input)) {
-      // Se a entrada for um número, busca diretamente pelo ID
-      const url = `https://swapi.py4e.com/api/people/${input}/`;
-      const res = await axios.get(url);
-      data = res.data;
+      // Busca por ID da SWAPI 
+      const id = parseInt(input);
+      foundCharacter = allCharacters.find((_, index) => index + 1 === id);
     } else {
-      // Caso contrário, realiza a busca por nome
-      const res = await axios.get(`https://swapi.py4e.com/api/people/?search=${input}`);
-      data = res.data.results[0];
-      if (!data) {
-        searchResult.value = null;
-        return;
-      }
+      // Busca por nome do personagem
+      foundCharacter = allCharacters.find(char => 
+        char.name.toLowerCase().includes(input.toLowerCase())
+      );
     }
 
-    const newChar: Character = {
-      name: data.name,
-      birth_year: data.birth_year,
-      height: data.height,
-      mass: data.mass,
-      hair_color: data.hair_color,
-      skin_color: data.skin_color,
-      eye_color: data.eye_color,
-      gender: data.gender,
-      homeworld: data.homeworld,
-      films: data.films,
-      species: data.species,
-      vehicles: data.vehicles,
-      starships: data.starships,
-      image:
-        'https://static.wikia.nocookie.net/herois/images/1/12/Luke_Skywalker_Jedi_robe.webp/revision/latest?cb=20240317034233&path-prefix=pt-br',
-    };
+    if (!foundCharacter) {
+      searchResult.value = null;
+      return;
+    }
 
-    searchResult.value = newChar;
+    searchResult.value = { ...foundCharacter };
   } catch (error) {
     console.error('Erro ao buscar personagem:', error);
     searchResult.value = null;
@@ -69,18 +58,14 @@ const deleteCharacter = (index: number) => {
 
 <template>
   <main>
-    <!-- Barra superior -->
     <header class="top-bar">
       <h1>Personagens Favoritos!</h1>
-
       <div class="form-box">
-        <input v-model="searchInput" placeholder="Digite um nome ou /people/1/" />
+        <input v-model="searchInput" placeholder="Digite um nome ou ID" />
         <button @click="searchCharacter">Buscar</button>
       </div>
     </header>
-
-    <!-- Preview do personagem buscado -->
-    <section v-if="searchResult" class="preview-container">
+    <section v-if="searchResult" class="preview-container"> <!-- Preview do personagem  -->
       <CharacterComponent
         :character="searchResult"
         :id="999"
@@ -88,9 +73,7 @@ const deleteCharacter = (index: number) => {
       />
       <button @click="addSearchedCharacter">Adicionar Personagem</button>
     </section>
-
-    <!-- Lista de personagens adicionados -->
-    <section v-if="characters.length" class="characters-container">
+    <section v-if="characters.length" class="characters-container"><!-- Lista de personagens adicionados -->
       <div class="card-grid">
         <div
           v-for="(person, index) in characters"
@@ -203,7 +186,7 @@ main {
 
   .card-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); // cards por linha
+  grid-template-columns: repeat(5, 1fr); // manipulação dos cards por colunas
   gap: 1rem;
   justify-items: center;
 }

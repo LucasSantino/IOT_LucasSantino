@@ -12,7 +12,7 @@ export const useCharacterStore = defineStore('characterStore', {
   actions: {
     async fetchCharacters() {
       try {
-        // Dicionário de imagens para personagens conhecidos
+        // Dicionário de imagens usando links pesquisados no google
         const characterImages: Record<string, string> = {
           'Luke Skywalker': 'https://media.contentapi.ea.com/content/dam/star-wars-battlefront-2/images/2019/08/swbf2-refresh-hero-large-heroes-page-luke-skywalker-16x9-xl.jpg.adapt.crop1x1.320w.jpg',
           'C-3PO': 'https://upload.wikimedia.org/wikipedia/pt/6/66/C-3PO.jpg',
@@ -104,20 +104,20 @@ export const useCharacterStore = defineStore('characterStore', {
           
         };
 
-        // Imagem padrão para personagens sem imagem específica
+        // Imagem se o personagem não tiver
         const defaultImage = 'https://static.wikia.nocookie.net/starwars/images/6/6f/Star_Wars_Logo.png';
 
         let url = 'https://swapi.py4e.com/api/people/';
         let allCharacters: Character[] = [];
 
-        // Carregar todos os personagens da API
+        // Carrega todos os personagens da API
         while (url) {
           const res = await axios.get(url);
           const data = res.data;
 
-          // Mapeando os personagens da SWAPI e atribuindo as imagens
+          // Mapeando os personagens da SWAPI e colocando as imagens
           const characters = data.results.map((char: any) => {
-            const imageUrl = characterImages[char.name] || defaultImage; // Atribuindo a imagem do personagem
+            const imageUrl = characterImages[char.name] || defaultImage; 
             return {
               name: char.name,
               birth_year: char.birth_year,
@@ -137,7 +137,7 @@ export const useCharacterStore = defineStore('characterStore', {
           });
 
           allCharacters.push(...characters); // Adicionando os personagens ao array total
-          url = data.next; // Continuar para o próximo conjunto de resultados, se houver
+          url = data.next; 
         }
 
         this.spaces = [

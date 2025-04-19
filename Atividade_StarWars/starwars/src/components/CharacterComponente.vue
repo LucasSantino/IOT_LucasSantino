@@ -23,7 +23,6 @@ const handleDelete = () => {
 <template>
   <section class="card" @click="toggleFlip">
     <div class="card-inner" :class="{ flipped: flipped }">
-      <!-- Parte da frente -->
       <div class="card-front">
         <img
           v-if="props.character.image"
@@ -33,8 +32,6 @@ const handleDelete = () => {
         />
         <h5>{{ props.character.name }}</h5>
       </div>
-
-      <!-- Parte de trás -->
       <div class="card-back">
         <p><strong>Altura:</strong> {{ props.character.height }}</p>
         <p><strong>Peso:</strong> {{ props.character.mass }}</p>
@@ -50,7 +47,6 @@ const handleDelete = () => {
         <p><strong>Filmes:</strong> {{ props.character.films.join(', ') }}</p>
       </div>
     </div>
-
     <div class="delete-btn" v-if="props.showButtons" @click.stop="handleDelete">
       <span class="material-icons">delete</span>
     </div>

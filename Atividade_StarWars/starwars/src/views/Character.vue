@@ -34,10 +34,8 @@ const prevPage = () => {
 <template>
   <main class="flex flex-column text-center justify-content-center align-items-center">
     <h1>Personagens: Star Wars!</h1>
-
     <section class="spaces flex flex-column align-items-center">
       <h2>{{ store.spaces[0]?.name }}</h2>
-
       <div class="cards-wrapper">
         <div v-for="(person, index) in paginatedCharacters" :key="index" class="card-item">
           <CharacterComponente
@@ -47,7 +45,6 @@ const prevPage = () => {
           />
         </div>
       </div>
-
       <div class="pagination">
         <button @click="prevPage" :disabled="currentPage === 1">Anterior</button>
         <span>Página {{ currentPage }}</span>
