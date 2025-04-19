@@ -5,11 +5,11 @@ import { RouterLink, RouterView, useRouter} from 'vue-router'
 const router = useRouter();
 
 const buttonRouteLabel = computed(()=>
-   router.currentRoute.value.name === 'character'? 'Personagens Favoritos' : 'Todos os Personagens'
+   router.currentRoute.value.name === 'HomeCharacter'? 'Personagens Favoritos' : 'Todos os Personagens'
 );
 
 const changePage = () => {
-  if(router.currentRoute.value.name === 'character'){
+  if(router.currentRoute.value.name === 'HomeCharacter'){
     router.push('/FavoriteCharacters');
   }
   else{

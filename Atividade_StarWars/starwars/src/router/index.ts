@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Character from '@/views/Character.vue';
+import HomeCharacter from '@/views/HomeCharacter.vue';
 import FavoriteCharacters from '@/views/FavoriteCharacters.vue';
 import NotFoundPage from '@/views/NotFoundPage.vue';
 
@@ -7,14 +7,14 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      component: Character,  
+      component: HomeCharacter,  
       path: '/',
-      name: 'character'
+      name: 'HomeCharacter'
     },
     {
       component: FavoriteCharacters,
       path: '/FavoriteCharacters',
-      name: 'favoritecharacters'
+      name: 'FavoriteCharacters'
     },
     {
       component: NotFoundPage,
