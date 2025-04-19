@@ -80,6 +80,7 @@ main {
   h1 {
     margin-bottom: 3rem;
     text-shadow: 1px 1px 4px black;
+    color:#ffd700
   }
 
   h2 {
@@ -110,7 +111,7 @@ main {
     gap: 1rem;
 
     button {
-      background-color: #f44336;
+      background-color: #eead2d;
       color: white;
       padding: 0.3rem 0.7rem;
       border: none;
@@ -120,11 +121,11 @@ main {
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #e53935;
+        background-color: #eead2d;
       }
 
       &:disabled {
-        background-color: #bdbdbd;
+        background-color: #eead2d;
         cursor: not-allowed;
       }
     }
