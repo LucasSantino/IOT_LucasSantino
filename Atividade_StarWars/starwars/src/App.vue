@@ -5,7 +5,7 @@ import { RouterLink, RouterView, useRouter} from 'vue-router'
 const router = useRouter();
 
 const buttonRouteLabel = computed(()=>
-   router.currentRoute.value.name === 'character'? 'Gerenciamento' : 'Personagens'
+   router.currentRoute.value.name === 'character'? 'Personagens Favoritos' : 'Todos os Personagens'
 );
 
 const changePage = () => {
@@ -20,7 +20,7 @@ const changePage = () => {
 </script>
 
 <template>
-  <button @click="changePage">Página {{ buttonRouteLabel}}</button>
+  <button @click="changePage"> {{ buttonRouteLabel}}</button>
   
   <RouterView />
 </template>
