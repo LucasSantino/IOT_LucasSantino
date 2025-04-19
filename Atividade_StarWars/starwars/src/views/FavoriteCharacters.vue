@@ -74,7 +74,7 @@ const deleteCharacter = (index: number) => {
       />
       <button @click="addSearchedCharacter">Adicionar Personagem</button>
     </section>
-    <section v-if="characters.length" class="characters-container"><!-- Lista de personagens adicionados -->
+    <section v-if="characters.length" class="characters-container"><!-- personagens adicionados -->
       <div class="card-grid">
         <div
           v-for="(person, index) in characters"
