@@ -10,7 +10,7 @@ const buttonRouteLabel = computed(()=>
 
 const changePage = () => {
   if(router.currentRoute.value.name === 'character'){
-    router.push('/management');
+    router.push('/FavoriteCharacters');
   }
   else{
     router.push('/')

@@ -1,24 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Character from '@/views/Character.vue';
-import Management from '@/views/Management.vue';
-import NotFound from '@/views/NotFound.vue';
+import FavoriteCharacters from '@/views/FavoriteCharacters.vue';
+import NotFoundPage from '@/views/NotFoundPage.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      component: Character,  // A palavra "component" é correta aqui
+      component: Character,  
       path: '/',
       name: 'character'
     },
     {
-      component: Management,
-      path: '/management',
-      name: 'management'
+      component: FavoriteCharacters,
+      path: '/FavoriteCharacters',
+      name: 'favoritecharacters'
     },
     {
-      component: NotFound,
-      path: '/:pathMatch(.*)*',  // Rota de "404 - Not Found"
+      component: NotFoundPage,
+      path: '/:pathMatch(.*)*',  
     }
   ],
 });
