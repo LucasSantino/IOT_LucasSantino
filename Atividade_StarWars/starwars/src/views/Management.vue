@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { Character } from '@/models/Character';
 import { useCharacterStore } from '@/stores/characterStore';
 import CharacterComponent from '@/components/CharacterComponente.vue';
 
