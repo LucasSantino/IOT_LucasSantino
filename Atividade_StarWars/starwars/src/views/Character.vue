@@ -104,14 +104,6 @@ main {
     align-items: center;
   }
   
- 
-.card:hover {
-  box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 20px; 
-  transform: scale(1.05); 
-  transition: transform 0.3s ease, box-shadow 0.3s ease; 
-}
-
-
   .pagination {
     margin-top: 2rem;
     display: flex;
