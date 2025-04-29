@@ -14,7 +14,7 @@ export const useCharacterStore = defineStore('characterStore', {
       try {
         // Dicionário de imagens usando links pesquisados no google
         const characterImages: Record<string, string> = {
-          'Luke Skywalker': 'https://media.contentapi.ea.com/content/dam/star-wars-battlefront-2/images/2019/08/swbf2-refresh-hero-large-heroes-page-luke-skywalker-16x9-xl.jpg.adapt.crop1x1.320w.jpg',
+          'Luke Skywalker': 'https://i0.wp.com/ovicio.com.br/wp-content/uploads/2023/02/20230217-fpkgftxxoaevuoe-1.jpg?resize=555%2C555&ssl=1',
           'C-3PO': 'https://upload.wikimedia.org/wikipedia/pt/6/66/C-3PO.jpg',
           'R2-D2': 'https://upload.wikimedia.org/wikipedia/pt/3/39/R2-D2_Droid.png',
           'Darth Vader': 'https://i.pinimg.com/564x/51/e3/7c/51e37c2b688170cdc07888eba287bfd1.jpg',
