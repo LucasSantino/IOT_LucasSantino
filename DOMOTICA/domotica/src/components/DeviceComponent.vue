@@ -9,6 +9,7 @@ import { Device } from '@/models/devices';
     const changeDevice = (newState: boolean)=> {
         props.device.state = newState;
     }
+
     
 </script>
 
