@@ -57,6 +57,13 @@ void scanRoutine(){
         for( JsonObject item : item){
             int pin = item["fields"]["pin"] | -1;
             bool state = item["fields"]["state"] | false;
+            
+            if(pin > 0){
+                pinMode(pin, OUTPUT);
+                digitalWrite(pin, state);
+                Serial.printf("\n PIN: %d, STATE: %d", state? "ON": "OFF");
+            }
+            
         }
         
     }
