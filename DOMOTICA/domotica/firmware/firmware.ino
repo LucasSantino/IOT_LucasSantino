@@ -13,16 +13,15 @@ unsigned long timerScan = 0;
 
 void setup()
 {
-    Serial.begin(115200)
-    WiFi.begin(ssid, password);
+    Serial.begin(115200);
+    WiFi.begin(ssid,password);
     Serial.println("Starting Wifi Connection!");
 
-    while(WiFi.status() !=WL_CONNECTED){
+    while(WiFi.status() != WL_CONNECTED){
         delay(100);
         Serial.println("*");
     }
-    Serial.printf("\n Successfully Connected with: %s", ssid);
-    
+    Serial.printf("\n Successfully Connected with: %s", ssid);    
 }
 
 void loop()
@@ -35,7 +34,6 @@ void loop()
     }    
 }
 
-
 void scanRoutine(){
 
     HTTPClient http;
@@ -47,29 +45,26 @@ void scanRoutine(){
     if(httpResponseStatus > 0){
         String response = http.getString();
 
-
-        const int responseSize = response.length() * 1.1;
+        const int responseSize = response.length() * 1.1;        
         DynamicJsonDocument json(responseSize);
         deserializeJson(json,response);
 
         JsonArray items = json["items"];
 
-        for( JsonObject item : items){
+        for( JsonObject item : items ){
             int pin = item["fields"]["pin"] | -1;
             bool state = item["fields"]["state"] | false;
-            
-            if(pin > 0){
+
+            if(pin > 0 ){
                 pinMode(pin, OUTPUT);
                 digitalWrite(pin, state);
-                Serial.printf("\n PIN: %d, STATE: %d", state? "ON": "OFF");
+                Serial.printf("\n PIN: %d, STATE: %s", pin, state? "ON":"OFF");                
             }
-            
         }
-        
+
     }
     else{
-        Serial.printf("\n Error when callin backend: 5d \n", httpResponseStatus);
+        Serial.printf("\n Error when calling backend: %d \n",httpResponseStatus);
     }
-
 
 }
