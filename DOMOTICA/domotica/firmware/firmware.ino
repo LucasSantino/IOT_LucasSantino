@@ -52,9 +52,9 @@ void scanRoutine(){
         DynamicJsonDocument json(responseSize);
         deserializeJson(json,response);
 
-        jsonArray items = json["items"];
+        JsonArray items = json["items"];
 
-        for( JsonObject item : item){
+        for( JsonObject item : items){
             int pin = item["fields"]["pin"] | -1;
             bool state = item["fields"]["state"] | false;
             
@@ -68,7 +68,7 @@ void scanRoutine(){
         
     }
     else{
-        serial.printf("\n Error when callin backend: 5d \n", httpResponseStatus);
+        Serial.printf("\n Error when callin backend: 5d \n", httpResponseStatus);
     }
 
 
